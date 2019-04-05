@@ -1,0 +1,1 @@
+const goodreadsApiKey = "75ZVOpry3gDgyRxeKXdoQ"
