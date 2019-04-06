@@ -1,3 +1,12 @@
 #main-container {
     text-align: center;
 }
+
+#results { list-style: none
+
+}
+
+img {
+    display: block;
+    margin: auto;
+}

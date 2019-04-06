@@ -21,13 +21,42 @@ console.log(goodreadsApiKey)
         const parser = new DOMParser()
         const parsedRes = parser.parseFromString(response, "text/xml")
         const parsedJson = xmlToJson(parsedRes)
-        console.log(parsedJson)
+        // console.log(parsedJson);
+        displayResults(parsedJson)
     })
    
    
-  // Display results on page with list 
+ // const li = document.createElement("li");
+	// li.innerHTML = "item 
+	// document.getElementById("results").appendChild(li)
    
 }
+// Display results on page with list 
+function displayResults(responseObj){
+	console.log("calling inside displayResults" , responseObj);
+	
+	const works = responseObj.GoodreadsResponse.search.results.work;
+	console.log(works)
+	 works.forEach(function(work){
+	 	const author = work.best_book.author.name["#text"]
+	 	const title = work.best_book.title["#text"]
+	 	const imgUrl = work.best_book.image_url["#text"]
+	 	console.log(title, author, imgUrl)
+	 	
+	 	const myListItem = document.createElement("li");
+	 	myListItem.innerHTML = title + "by" + author;
+	 	document.getElementById("results").appendChild(myListItem)
+ 	 	
+	 	// console.log(work)
+		
+	 })
+
+	
+
+}
+
+
+
 
 function xmlToJson(xml) {
 	
