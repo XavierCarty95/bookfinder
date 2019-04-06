@@ -10,7 +10,7 @@ console.log(goodreadsApiKey)
     const endpoint = "https://www.goodreads.com/search/index.xml"
     const corsAnywhere = "https://cors-anywhere.herokuapp.com/"
     
-    const url = corsAnywhere + endpoint + "?key=" + goodreadsApiKey + "&q" + keyword
+    const url = corsAnywhere + endpoint + "?key=" + goodreadsApiKey + "&" +  "q=" + keyword
     
     fetch(url)
     .then(function (response){
@@ -21,7 +21,7 @@ console.log(goodreadsApiKey)
         const parser = new DOMParser()
         const parsedRes = parser.parseFromString(response, "text/xml")
         const parsedJson = xmlToJson(parsedRes)
-        // console.log(parsedJson);
+        console.log(parsedJson);
         displayResults(parsedJson)
     })
    
@@ -33,17 +33,23 @@ console.log(goodreadsApiKey)
 }
 // Display results on page with list 
 function displayResults(responseObj){
-	console.log("calling inside displayResults" , responseObj);
+	// console.log("calling inside displayResults" , responseObj);
 	
 	const works = responseObj.GoodreadsResponse.search.results.work;
-	console.log(works)
+	document.getElementById("results").innerHTML = "";
+	// console.log(works)
 	 works.forEach(function(work){
+	 	
 	 	const author = work.best_book.author.name["#text"]
 	 	const title = work.best_book.title["#text"]
 	 	const imgUrl = work.best_book.image_url["#text"]
 	 	console.log(title, author, imgUrl)
 	 	
 	 	const myListItem = document.createElement("li");
+	 	const image = document.createElement("img")
+	 	image.setAttribute("src" , imgUrl)
+	 	
+	    
 	 	myListItem.innerHTML = title + "by" + author;
 	 	document.getElementById("results").appendChild(myListItem)
  	 	
